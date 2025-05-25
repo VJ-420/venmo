@@ -12,9 +12,9 @@ public class Transactions {
     private int transaction_id;
     private LocalDateTime date;
     private double amount;
-    private String transactionType; // DEPOSIT, WITHDRAWAL, TRANSFER
+    private String transactionType; // TRANSFER
     private long senderWalletId;    // sid - for transfers
-    private long receiverWalletId;  // rid - for transfers/deposits
+    private long receiverWalletId;  // rid - for transfers
     private String status;
 
     @ManyToOne

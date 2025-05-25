@@ -39,48 +39,9 @@ public class TransactionServiceImpl implements TransactionService {
         transactions.setAmount(amount);
         transactions.setStatus(status);
         transactions.setTransactionType(type);
-
-        if (receiver != null) {
-            transactions.setSid(sender.getWallet_id());
-            transactions.setRid(receiver.getWallet_id());
-        } else {
-            transactions.setWallet(sender);
-        }
-
+        transactions.setSid(sender.getWallet_id());
+        transactions.setRid(receiver.getWallet_id());
         this.transactionRepo.save(transactions);
-    }
-
-    @Transactional
-    @Override
-    public Wallet deposit(int walletId, double amount) {
-
-        Wallet wallet = this.walletRepo.findById(walletId).orElseThrow(()
-                -> new ResourceNotFound("Wallet not found"));
-
-        validateTransaction(wallet, amount);
-        wallet.setBalance(wallet.getBalance() + amount);
-        walletRepo.save(wallet);
-        recordTransaction(wallet, null, amount, "Deposit", "Sucess");
-        return wallet;
-    }
-
-    @Transactional
-    @Override
-    public Wallet withdraw(int walletId, double amount) {
-        Wallet wallet = this.walletRepo.findById(walletId).orElseThrow(()
-                -> new ResourceNotFound("Wallet not found"));
-
-        validateTransaction(wallet, amount);
-        if (wallet.getBalance() < amount) {
-            recordTransaction(wallet, null, amount, "Withdraw", "Failed");
-            throw new InsufficientBalance("Insufficient balance");
-        }
-
-        wallet.setBalance(wallet.getBalance() - amount);
-        walletRepo.save(wallet);
-        recordTransaction(wallet, null, amount, "Withdraw", "Sucess");
-        return wallet;
-
     }
 
     @Transactional

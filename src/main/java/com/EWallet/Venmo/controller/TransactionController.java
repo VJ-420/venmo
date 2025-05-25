@@ -28,35 +28,7 @@ public class TransactionController {
         return history;
     }
 
-    @PostMapping("/deposit/{id}/{amount}")
-    public Wallet deposit(
-            @PathVariable("id") int id,
-            @PathVariable("amount") double amount){
-        try{
-            Wallet wallet = this.transactionService.deposit(id,amount);
-            logger.info("Deposit done");
-            return wallet;
-        } catch (RuntimeException e) {
-            logger.error("Deposit failed");
-            throw new TransactionFailed("Deposit failed");
-        }
-    }
-
-    @PostMapping("/withdraw/{id}/{amount}")
-    public Wallet withdraw(
-            @PathVariable("id") int id,
-            @PathVariable("amount") double amount){
-        try{
-            Wallet wallet = this.transactionService.withdraw(id,amount);
-            logger.info("Withdraw Sucess");
-            return wallet;
-        }catch (Exception e){
-            logger.error("Withdraw Failed");
-            throw new TransactionFailed("Withdraw failed");
-        }
-    }
-
-    @PostMapping("/transfer/{fromId}/{toId}/{amount}")
+    @PostMapping("/transfer/wallet/{fromId}/{toId}/{amount}")
     public String transfer(
             @PathVariable("fromId") int fromId,
             @PathVariable("toId") int toId,
