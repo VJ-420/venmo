@@ -14,9 +14,9 @@ public class Wallet {
     private int walletId;
     private double balance;
     private boolean isActive;
-    @OneToOne(mappedBy = "wallet_id")
+    @OneToOne(mappedBy = "wallet")
     private User user;
-    @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL , orphanRemoval = true)
     private List<Account> accounts;
     @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL)
     private List<Transactions> transactions;

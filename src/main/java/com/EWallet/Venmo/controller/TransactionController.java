@@ -8,9 +8,12 @@ import com.EWallet.Venmo.service.WalletService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/transaction")
@@ -29,17 +32,33 @@ public class TransactionController {
     }
 
     @PostMapping("/transfer/wallet/{fromId}/{toId}/{amount}")
-    public String transfer(
+    public String Wallettransfer(
             @PathVariable("fromId") int fromId,
             @PathVariable("toId") int toId,
             @PathVariable("amount") double amount){
         try{
             transactionService.transfer(fromId,toId,amount);
             logger.info("Transfer Sucess");
-            return "Sucess";
+            return  "success Transfer completed successfully";
         } catch (Exception e) {
             logger.error("Transaction Failed");
             throw new TransactionFailed("Transaction Failed");
+        }
+    }
+
+    @PostMapping("/transfer/account/{fromId}/{toId}/{amount}")
+    public String accountTransfer(
+            @PathVariable int fromId,
+            @PathVariable int toId,
+            @PathVariable double amount) {
+        try {
+            transactionService.Accounttransfer(fromId, toId, amount);
+            logger.info("transfer success");
+            return "success Transfer completed successfully";
+
+        } catch (Exception e) {
+            logger.error("Account transfer API failed", e);
+            return "Transfer Failed";
         }
     }
 

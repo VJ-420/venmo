@@ -78,7 +78,7 @@ public class UserController {
 
             existingUser.setName(user.getName());
             existingUser.setEmail(user.getEmail());
-            existingUser.setMobile_no(user.getMobile_no());
+            existingUser.setMobilenum(user.getMobilenum());
             
             User updatedUser = this.UserService.update(id, existingUser);
             if(updatedUser == null){

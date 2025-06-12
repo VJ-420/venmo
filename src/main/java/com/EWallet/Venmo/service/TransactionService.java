@@ -11,6 +11,8 @@ public interface TransactionService  {
     public void recordTransaction(Wallet sender, Wallet receiver, double amount, String type, String status);
     public void transfer(int fromId , int toId , double amount);
     public List<Transactions> getTransactionHistory(int walletId);
+    public void Accounttransfer(int fromId , int toId , double amount);
+
 
 
 }

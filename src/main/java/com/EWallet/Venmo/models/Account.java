@@ -8,11 +8,11 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int account_id;
     private double account_bal;
-    @Column(unique = true , nullable = false)
-    private long account_num;
+    @Column(name = "Account_number",unique = true,nullable = false)
+    private Long accountNum;
 
     @ManyToOne
-    @JoinColumn(name = "wallet_id" , referencedColumnName = "wallet_id")
+    @JoinColumn(name = "wallet_id" , referencedColumnName = "wallet_id" )
     private Wallet wallet;
 
     public Account(){
@@ -21,7 +21,7 @@ public class Account {
     public Account(int account_id, double account_bal, long account_num, Wallet wallet_id) {
         this.account_id = account_id;
         this.account_bal = account_bal;
-        this.account_num = account_num;
+        this.accountNum = account_num;
         this.wallet = wallet_id;
     }
 
@@ -42,11 +42,11 @@ public class Account {
     }
 
     public long getAccount_num() {
-        return account_num;
+        return accountNum;
     }
 
     public void setAccount_num(long account_num) {
-        this.account_num = account_num;
+        this.accountNum = account_num;
     }
 
     public Wallet getWallet() { return wallet;}

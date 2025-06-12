@@ -1,6 +1,8 @@
 package com.EWallet.Venmo.models;
 import jakarta.persistence.*;
 
+import java.math.BigInteger;
+
 @Entity
 @Table(name = "Users")
 public class User {
@@ -10,30 +12,30 @@ public class User {
     private String name;
     private String email;
     @Column(unique = true, nullable = false)
-    private int mobile_no;
+    private String mobilenum;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "wallet_id")
-    private Wallet wallet_id;
+    private Wallet wallet;
 
 
     public User (){
 
     }
 
-    public User(int id, String name, String email, int mobile_no, Wallet wallet_id) {
+    public User(int id, String name, String email, String mobilenum, Wallet wallet_id) {
         this.user_id = id;
         this.name = name;
         this.email = email;
-        this.mobile_no = mobile_no;
-        this.wallet_id = wallet_id;
+        this.mobilenum = mobilenum;
+        this.wallet = wallet_id;
     }
 
     public Wallet getWallet_id() {
-        return wallet_id;
+        return wallet;
     }
 
     public void setWallet_id( Wallet wallet_id) {
-        this.wallet_id=wallet_id;
+        this.wallet=wallet_id;
     }
 
     public int getId() {
@@ -60,12 +62,12 @@ public class User {
         this.email = email;
     }
 
-    public int getMobile_no() {
-        return mobile_no;
+    public String getMobilenum() {
+        return mobilenum;
     }
 
-    public void setMobile_no(int mobile_no) {
-        this.mobile_no = mobile_no;
+    public void setMobilenum(String mobilenum) {
+        this.mobilenum = mobilenum;
     }
 
 }
